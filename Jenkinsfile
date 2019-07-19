@@ -104,7 +104,7 @@ node {
                     if (test_num == 0 ) 
                     {
                         // Test we can download the home page from the running django docker container
-                        sh "docker exec -t ${container_name} curl -s http://localhost | grep Welcome | wc -l | tr -d '\n' > /tmp/test_results" 
+                        sh "docker exec -t ${container_name} curl -s http://localhost | grep Jenkins | wc -l | tr -d '\n' > /tmp/test_results" 
                         expected_results = 1
                     }
                     else if (test_num == 1)
