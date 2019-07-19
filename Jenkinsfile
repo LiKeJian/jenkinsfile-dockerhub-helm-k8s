@@ -52,7 +52,7 @@ node {
     docker.withRegistry("${registry_url}", "${docker_creds_id}") {
     
         // Set up the container to build 
-        maintainer_name = "bala"
+        maintainer_name = "bakuppus"
         container_name = "amazonlinux-httpd"
         
 
