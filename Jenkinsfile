@@ -19,10 +19,10 @@ def helmDeploy(Map args) {
     if (args.dry_run) {
         println "Running dry-run deployment"
 
-        sh "/usr/local/bin/helm upgrade --dry-run --debug --install ${args.name} ${args.chart_dir} --set ImageTag=${args.tag},Replicas=${args.replicas},Cpu=${args.cpu},Memory=${args.memory},DomainName=${args.name} --namespace=${args.name}"
+        sh "/usr/local/bin/helm upgrade --dry-run --debug --install ${args.name} ${args.chart_dir} --set image.tag=${args.tag},Replicas=${args.replicas},Cpu=${args.cpu},Memory=${args.memory},DomainName=${args.name} --namespace=${args.name}"
     } else {
         println "Running deployment"
-        sh "/usr/local/bin/helm upgrade --install ${args.name} ${args.chart_dir} --set ImageTag=${args.tag},Replicas=${args.replicas},Cpu=${args.cpu},Memory=${args.memory},DomainName=${args.name} --namespace=${args.name}"
+        sh "/usr/local/bin/helm upgrade --install ${args.name} ${args.chart_dir} --set image.tag=${args.tag},Replicas=${args.replicas},Cpu=${args.cpu},Memory=${args.memory},DomainName=${args.name} --namespace=${args.name}"
 
         echo "Application ${args.name} successfully deployed. Use helm status ${args.name} to check"
     }
@@ -36,7 +36,8 @@ node {
     // Setup the Docker Registry (Docker Hub) + Credentials 
     registry_url = "https://index.docker.io/v1/" // Docker Hub
     docker_creds_id = "bakuppus-dockerhub" // name of the Jenkins Credentials ID
-    build_tag = "1.0" // default tag to push for to the registry
+    //build_tag = "1.0" // default tag to push for to the registry
+    build_tag = "${BUILD_NUMBER}" // default tag to push for to the registry
     
     def pwd = pwd()
     def chart_dir = "${pwd}/helm"
